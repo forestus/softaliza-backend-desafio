@@ -1,0 +1,74 @@
+paths:
+  /users:
+    post:
+      tags:
+        - 'User'
+      summary: Criar Usuário.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: Nome do Usuário.
+                  example: Guilherme
+                password_hash:
+                  type: string
+                  description: Senha do Usuário.
+                  example: '123321'
+      responses:
+        201:
+          description: Retorna um Usuário.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: ID do Usuário.
+                    example: 0
+                  username:
+                    type: string
+                    description: Nome do Usuário.
+                    example: Guilherme
+                  created_at:
+                    type: string
+                    description: Data de criação de cadastro.
+                    example: '2021-07-08T02:42:29.651Z'
+                  updated_at:
+                    type: string
+                    description: Data de atualização do cadastro.
+                    example: '2021-07-08T02:42:29.651Z'
+        400:
+          description: Erro de Validação.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                      [
+                        'Nome Não Informado!',
+                        'Senha Não Informada!',
+                        '`O Parametro passado "${error.value}" não condiz com o tipo Necessário!`'
+                      ]
+        409:
+          description: Erro de Conflito.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: array
+                    items:
+                      type: string
+                    example: ['Este Usuário Já Existe!']
