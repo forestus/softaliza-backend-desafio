@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { AppError } from '@errors/AppError'
-import { UsersService } from '@services/User/UsersServices'
+import { UsersService } from '@services/Users/UsersServices'
 
 class UserController {
   // Cria uma novo Usuário recebendo os dados pelo corpo da requisição, retorna os dados do Usuário criado com status correspondente.

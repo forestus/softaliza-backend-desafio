@@ -1,5 +1,5 @@
 import UserController from '@controllers/UserController'
-import UserValidator from '@services/User/UserValidator'
+import UserValidator from '@services/Users/UserValidator'
 import { Router } from 'express'
 import { ensureAuthenticated } from '@middlewares/ensureAuthenticated'
 const router = Router()
