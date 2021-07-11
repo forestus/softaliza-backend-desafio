@@ -3,7 +3,7 @@ paths:
     post:
       tags:
         - 'User'
-      summary: Signin.
+      summary: Login de Usuário.
       requestBody:
         required: true
         content:
