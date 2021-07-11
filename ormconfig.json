@@ -1,0 +1,17 @@
+{
+  "type": "postgres",
+  "host": "postgres",
+  "port": "5432",
+  "username": "admin",
+  "password": "123456",
+  "database": "postgres",
+  "keepConnectionAlive": true,
+  "synchronize": true,
+  "logging": false,
+  "migrations": ["src/database/migrations/*.{js,ts}"],
+  "entities": ["src/entities/*.{js,ts}"],
+  "cli": {
+    "migrationsDir": "src/database/migrations",
+    "entitiesDir": "src/entities"
+  }
+}
