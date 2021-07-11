@@ -1,0 +1,105 @@
+paths:
+  /posts/{id}:
+    put:
+      tags:
+        - 'Post'
+      summary: Atualizar uma Postagem.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: ID da Postagem.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: Titulo da Postagem.
+                  example: Nodejs e Express
+                content:
+                  type: string
+                  description: Conteudo da Postagem.
+                  example: É muito Simples fazer uma Rota!
+      responses:
+        200:
+          description: Postagem Atualizada.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: ID do Usuário.
+                    example: 0
+                  username:
+                    type: string
+                    description: Nome do Usuário.
+                    example: Guilherme
+                  created_at:
+                    type: string
+                    description: Data de criação de cadastro.
+                    example: '2021-07-08T02:42:29.651Z'
+                  updated_at:
+                    type: string
+                    description: Data de atualização do cadastro.
+                    example: '2021-07-08T02:42:29.651Z'
+        400:
+          description: Erro de Validação.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                      [
+                        'ID Não Informado!',
+                        'Os Dados da Postagem Não foram Informados!',
+                        '`O Parametro passado "${error.value}" não condiz com o tipo Necessário!`'
+                      ]
+        401:
+          description: Não Autorizado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: array
+                    items:
+                      type: string
+                    example: ['Não Autorizado!']
+        404:
+          description: Não Encontrado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: array
+                    items:
+                      type: string
+                    example: ['Nenhuma Postagem Encontrada!']
+        409:
+          description: Erro de Conflito.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: array
+                    items:
+                      type: string
+                    example: ['Postagem já possui os Dados Informados!']
