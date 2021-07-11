@@ -1,0 +1,77 @@
+paths:
+  /users/{id}:
+    get:
+      tags:
+        - 'User'
+      summary: Encontrar Usuário por ID.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: ID de Usuário.
+      responses:
+        200:
+          description: Usuário.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: ID do Usuário.
+                    example: 0
+                  username:
+                    type: string
+                    description: Nome do Usuário.
+                    example: Guilherme
+                  created_at:
+                    type: string
+                    description: Data de criação de cadastro.
+                    example: '2021-07-08T02:42:29.651Z'
+                  updated_at:
+                    type: string
+                    description: Data de atualização do cadastro.
+                    example: '2021-07-08T02:42:29.651Z'
+        400:
+          description: Erro de Validação.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                      [
+                        'ID Não Informado!',
+                        '`O Parametro passado "${error.value}" não condiz com o tipo Necessário!`'
+                      ]
+        404:
+          description: Não Encontrado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: array
+                    items:
+                      type: string
+                    example: ['Usuário não Encontrado!']
+        401:
+          description: Não Autorizado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: array
+                    items:
+                      type: string
+                    example: ['Não Autorizado!']
