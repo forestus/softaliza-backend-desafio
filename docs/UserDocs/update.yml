@@ -1,0 +1,109 @@
+paths:
+  /users/{id}:
+    put:
+      tags:
+        - 'User'
+      summary: Atualizar um Usuário.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: ID de Usuário.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: Nome do Usuário.
+                  example: Guilherme
+                password_hash:
+                  type: string
+                  description: Senha do Usuário.
+                  example: '123321'
+      responses:
+        200:
+          description: Usuário Atualizado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: ID do Usuário.
+                    example: 0
+                  username:
+                    type: string
+                    description: Nome do Usuário.
+                    example: Guilherme
+                  created_at:
+                    type: string
+                    description: Data de criação de cadastro.
+                    example: '2021-07-08T02:42:29.651Z'
+                  updated_at:
+                    type: string
+                    description: Data de atualização do cadastro.
+                    example: '2021-07-08T02:42:29.651Z'
+        400:
+          description: Erro de Validação.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                      [
+                        'ID Não Informado!',
+                        'Os Dados do Usuário Não foram Informados!',
+                        '`O Parametro passado "${error.value}" não condiz com o tipo Necessário!`'
+                      ]
+        404:
+          description: Não Encontrado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: array
+                    items:
+                      type: string
+                    example: ['Usuário não Encontrado!']
+        409:
+          description: Erro de Conflito.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                      [
+                        'Usuário já possui os Dados Informados!',
+                        'Este Nome de usuário Já Existe!'
+                      ]
+        401:
+          description: Não Autorizado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: array
+                    items:
+                      type: string
+                    example: ['Não Autorizado!']
