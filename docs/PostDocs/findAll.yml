@@ -1,0 +1,73 @@
+paths:
+  /posts/:
+    get:
+      tags:
+        - 'Post'
+      summary: Encontrar Todos as Postagens.
+      responses:
+        200:
+          description: Array de Postagens.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - type: object
+                      properties:
+                        id:
+                          type: integer
+                          description: ID do Postagem.
+                          example: 0
+                        title:
+                          type: string
+                          description: Titulo da Postagem.
+                          example: Nodejs + Express
+                        content:
+                          type: string
+                          description: Conteudo da Postagem.
+                          example: É muito Simples fazer uma Rota!
+                        slug:
+                          type: string
+                          description: Slug da Postagem.
+                          example: nodejs-e-express
+                        created_at:
+                          type: string
+                          description: Data de criação de cadastro.
+                          example: '2021-07-08T02:42:29.651Z'
+                        updated_at:
+                          type: string
+                          description: Data de atualização do cadastro.
+                          example: '2021-07-08T02:42:29.651Z'
+                        created_by:
+                          type: object
+                          description: Entidade do Usuário que Postou.
+                          properties:
+                            id:
+                              type: integer
+                              description: ID do Usuário.
+                              example: 0
+                            username:
+                              type: string
+                              description: Nome do Usuário.
+                              example: Guilherme
+                            created_at:
+                              type: string
+                              description: Data de criação de cadastro.
+                              example: '2021-07-08T02:42:29.651Z'
+                            updated_at:
+                              type: string
+                              description: Data de atualização do cadastro.
+                              example: '2021-07-08T02:42:29.651Z'
+        404:
+          description: Não Encontrado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: array
+                    items:
+                      type: string
+                    example: ['Postagem não Encontrada!']
