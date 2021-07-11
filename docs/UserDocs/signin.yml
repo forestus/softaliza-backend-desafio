@@ -1,0 +1,82 @@
+paths:
+  /users/signin:
+    post:
+      tags:
+        - 'User'
+      summary: Signin.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: Nome do Usuário.
+                  example: Guilherme
+                password_hash:
+                  type: string
+                  description: Senha do Usuário.
+                  example: '123456'
+      responses:
+        200:
+          description: Retorna Usuário e o Token JWT.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        description: ID do Usuário.
+                        example: 0
+                      username:
+                        type: string
+                        description: Nome do Usuário.
+                        example: Guilherme
+                      created_at:
+                        type: string
+                        description: Data de criação de cadastro.
+                        example: '2021-07-08T02:42:29.651Z'
+                      updated_at:
+                        type: string
+                        description: Data de atualização do cadastro.
+                        example: '2021-07-08T02:42:29.651Z'
+                  token:
+                    type: string
+                    description: Token JWT.
+                    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkSWQiOjEsImlhdCI6MTYyNTcwMjgzNSwiZXhwIjoxNjI1NzA2NDM1LCJzdWIiOiIxIn0.XoxnBn_b6lrbnUYA0RKj5WVSZrwYGnZv4c6W9ZhBPa4'
+        400:
+          description: Erro de Validação.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                      [
+                        'Senha Incorreta!',
+                        'Nome Não Informado!',
+                        'Senha Não Informada!',
+                        '`O Parametro passado "${error.value}" não condiz com o tipo Necessário!`'
+                      ]
+        404:
+          description: Não Encontrado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: array
+                    items:
+                      type: string
+                    example: ['Usuário não Encontrado!']
