@@ -1,0 +1,23 @@
+{
+  "user": {
+    "username": "Guilherme",
+    "password_hash": "123456"
+  },
+  "posts": [
+    {
+      "title": "Nodejs rumo ao junior na softaliza!!",
+      "content": "Post direcionado aos usuários de Nodejs.",
+      "created_by": "1"
+    },
+    {
+      "title": "Nodejs e Express!!",
+      "content": "É muito Simples fazer uma Rota!",
+      "created_by": "1"
+    },
+    {
+      "title": "Deus na frente!!",
+      "content": "Nesse ano de 2021 muitas mudanças ocorreram, uma delas foi que eu deixei a preguiça de lado e resolvi correr atraz do que já é meu, agradeço a Deus pelas bençãos e pela força que tem me dado.",
+      "created_by": "1"
+    }
+  ]
+}
