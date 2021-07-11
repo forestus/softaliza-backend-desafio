@@ -1,0 +1,57 @@
+paths:
+  /users/:
+    get:
+      tags:
+        - 'User'
+      summary: Encontrar Todos os Usuários.
+      responses:
+        200:
+          description: Array de Usuários.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - type: object
+                      properties:
+                        id:
+                          type: integer
+                          description: ID do Usuário.
+                          example: 0
+                        username:
+                          type: string
+                          description: Nome do Usuário.
+                          example: Guilherme
+                        created_at:
+                          type: string
+                          description: Data de criação de cadastro.
+                          example: '2021-07-08T02:42:29.651Z'
+                        updated_at:
+                          type: string
+                          description: Data de atualização do cadastro.
+                          example: '2021-07-08T02:42:29.651Z'
+        404:
+          description: Não Encontrado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: array
+                    items:
+                      type: string
+                    example: ['Usuário não Encontrado!']
+        401:
+          description: Não Autorizado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: array
+                    items:
+                      type: string
+                    example: ['Não Autorizado!']
