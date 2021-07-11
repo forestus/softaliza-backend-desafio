@@ -1,4 +1,6 @@
 import { testServer } from '../server.spec'
+
+// espera que o login retorne o token
 export async function loginUser (): Promise<any> {
   const signin = await testServer.post('/users/signin')
     .set('Accept', 'application/json')
@@ -13,6 +15,22 @@ export async function loginUser (): Promise<any> {
     })
   return { signin }
 }
+
+let token
+// antes de todos faça login e salve o token
+beforeAll((done) => {
+  testServer
+    .post('/users/signin')
+    .send({
+      username: 'Guilherme',
+      password_hash: '123456'
+    })
+    .end((err, response) => {
+      console.log(err)
+      token = response.body.token // salva o token!
+      done()
+    })
+})
 describe('UserController', () => {
   // Rota find de Usuários deve retornar 401 se o login sem token JWT
   test('Users find Route should be return 401 if login without token JWT', async () => {
@@ -31,10 +49,9 @@ describe('UserController', () => {
   })
   // Rota find de Usuários deve retornar 200 e Array de objetos se logado com token JWT
   test('Users find Route should be return 200, Array of Objects if login with token JWT', async () => {
-    const { signin } = await loginUser()
     await testServer.get('/users')
       .set('Accept', 'application/json')
-      .set('Authorization', `bearer ${signin.body.token}`)
+      .set('Authorization', `bearer ${token}`)
       .expect(async (response) => {
         JSON.stringify(response)
         expect(response.status).toBe(200)
@@ -44,10 +61,9 @@ describe('UserController', () => {
   })
   // Rota findOne de Usuários deve retornar 200 e objeto se obter com id params e fazer login com token JWT
   test('Users findOne Route should be return 200 and Object if get with id params and login with token JWT', async () => {
-    const { signin } = await loginUser()
     await testServer.get('/users/1')
       .set('Accept', 'application/json')
-      .set('Authorization', `bearer ${signin.body.token}`)
+      .set('Authorization', `bearer ${token}`)
       .expect((response) => {
         JSON.stringify(response)
         expect(response.status).toBe(200)
@@ -66,10 +82,9 @@ describe('UserController', () => {
   })
   // Rota Update de Usuários deve retornar 200 e Object se fizer login com token JWT
   test('Users Update Route should be return 200, and Object if login with token JWT', async () => {
-    const { signin } = await loginUser()
     await testServer.put('/users/2')
       .set('Accept', 'application/json')
-      .set('Authorization', `bearer ${signin.body.token}`)
+      .set('Authorization', `bearer ${token}`)
       .send({ username: 'forestus7', password_hash: '12345' })
       .expect(async (response) => {
         JSON.stringify(response)
@@ -79,10 +94,9 @@ describe('UserController', () => {
   })
   // Rota Delete de Usuários deve retornar 200 se fizer login com token JWT
   test('Users Delete Route should be return 200, and Object if login with token JWT', async () => {
-    const { signin } = await loginUser()
     await testServer.delete('/users/2')
       .set('Accept', 'application/json')
-      .set('Authorization', `bearer ${signin.body.token}`)
+      .set('Authorization', `bearer ${token}`)
       .expect(async (response) => {
         JSON.stringify(response)
         expect(response.status).toBe(200)
